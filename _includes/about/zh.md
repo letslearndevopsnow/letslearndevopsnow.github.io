@@ -4,8 +4,7 @@ I'm an Associate Site Reliability Engineer working in SRE and Telecommunication 
 
 <h2>Personal Information </h2>
 
-```bash
-
+<p>
 Name        - Thaung Htike Oo
 Nickname    - Ardam
 Education   - University Of Information Technology ( Finaly Year )
@@ -13,7 +12,7 @@ DOB         -  November 8, 1998
 Position    - Associatte SRE
 Company     - Frontiir Myanmar
 email       - thaunghtikeoo.tho1234@gmail.com
-```
+<p>
 
 <h2>Work Experiences</h2>
 
