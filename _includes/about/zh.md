@@ -4,21 +4,19 @@ I'm an Associate Site Reliability Engineer working in SRE and Telecommunication 
 
 ##### Personal Information 
 
-Name        - Thaung Htike Oo
-Nickname    - Ardam
-Education   - University Of Information Technology ( Finaly Year )
-DOB         -  November 8, 1998 
-Position    - Associatte SRE
-Company     - Frontiir Myanmar
-email       - thaunghtikeoo.tho1234@gmail.com
+- Name        - Thaung Htike Oo
+- Nickname    - Ardam
+- Education   - University Of Information Technology ( Finaly Year )
+- DOB         -  November 8, 1998 
+- Position    - Associatte SRE
+- Company     - Frontiir Myanmar
+- email       - thaunghtikeoo.tho1234@gmail.com
 
 
-<h2>Work Experiences</h2>
+##### Work Experiences
 
-```bash
+- Royal Bell Company ( 2019 Internship )
+- Code2Lab Company   ( 2020 Internship) 
+- Frontiir Myanmar   (2020 Dec - current )
 
-Royal Bell Company ( 2019 Internship )
-Code2Lab Company   ( 2020 Internship) 
-Frontiir Myanmar   (2020 Dec - current )
-```
 
