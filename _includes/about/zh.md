@@ -2,6 +2,7 @@ I'm an Associate Site Reliability Engineer working in SRE and Telecommunication 
 
 ##### Personal Information
 
+```bash
 - Name        - Thaung Htike Oo
 - Nickname    - Ardam
 - Education   - University Of Information Technology ( Finaly Year )
@@ -9,7 +10,7 @@ I'm an Associate Site Reliability Engineer working in SRE and Telecommunication 
 - Position    - Associatte SRE
 - Company     - Frontiir Myanmar
 - email       - thaunghtikeoo.tho1234@gmail.com
-
+```
 
 ##### Work Experiences
 
