@@ -22,14 +22,17 @@ Frontiir Myanmar   (2020 Dec - current )
 
 ##### Tech SKills
 ```bash
-OS ( Linux, Window, Mac)
-Python ( Django, Starlette)
+Operating System      ( Linux, Window, Mac)
+Python                ( Django, Starlette)
 Bash Script
 CCNA
-Database ( MySQL, Mongo, Postgre, MariaDB)
-CICD ( Jenkins, Gitlab, Spinnaker)
-Automation ( Ansible, Puppet, Chet, Terraform)
-Containerization ( Docker , Kubernetes, Openshift, AKS, EKS)
+Database              ( MySQL, Mongo, Postgre, MariaDB)
+CICD                  ( Jenkins, Gitlab, Spinnaker)
+Automation            ( Ansible, Puppet, Chet, Terraform)
+Containerization      ( Docker , Kubernetes, Openshift, AKS, EKS)
 Cloud Computing ( AWS, Azure)
 ```
-
+##### Certifications
+```bash 
+no certificate yet
+```
