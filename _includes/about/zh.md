@@ -30,7 +30,7 @@ Database              ( MySQL, Mongo, Postgre, MariaDB)
 CICD                  ( Jenkins, Gitlab, Spinnaker)
 Automation            ( Ansible, Puppet, Chet, Terraform)
 Containerization      ( Docker , Kubernetes, Openshift, AKS, EKS)
-Cloud Computing ( AWS, Azure)
+Cloud Computing       ( AWS, Azure)
 ```
 ##### Certifications
 ```bash 
