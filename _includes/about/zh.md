@@ -15,7 +15,7 @@ email       - thaunghtikeoo.tho1234@gmail.com
 
 ##### Work Experiences
 ```bash
-oyal Bell Company ( 2019 Internship )
+oyal Bell Company  ( 2019 Internship )
 Code2Lab Company   ( 2020 Internship) 
 Frontiir Myanmar   (2020 Dec - current )
 ```
@@ -34,5 +34,5 @@ Cloud Computing ( AWS, Azure)
 ```
 ##### Certifications
 ```bash 
-no certificate yet
+AWS Associate Solution Architect 
 ```
