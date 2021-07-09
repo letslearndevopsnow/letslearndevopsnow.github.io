@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "LXC & ANSIBLE"
-subtitle:   "Introduction To Ansible Ad-Hoc Commands & Playbooks"
+subtitle:   "Introduction To Ansible Ad-Hoc Commands & Playbooks ( PART-I)"
 date:       2021-07-09 3:00:00
 author:     "Thaung Htike Oo"
 header-img: img/black.jpg
@@ -82,9 +82,72 @@ vim /etc/ssh/sshd_config
 PermitRootLogin yes
 PasswordAuthentication yes
 ```
-ပြီးရင်တော့ ssh service ကို restart ချပေးပါ။ ssh-copy-id ဖို့ root user ကို password သတ်မှတ်ပေးပါ။
+ပြီးရင်တော့ ssh service ကို restart ချပေးပါ။ ssh-copy-id ဖို့ worker nodes တွေမှာ root ကို password သတ်မှတ်ပေးပါ။
 ```bash
 systemctl restart ssh ( on all nodes )
-passwd root ( on all nodes )
+passwd root ( on worker nodes )
 ```
+ပြီးသွားရင်တော့ master နဲ့ worker ၂ခုကို ssh-copy-id နဲ့ချိတ်ဆက်ပေးရပါမယ်။ password တောင်းလာရင် worker တွေမှာ root ကိုသတ်မှတ်ခဲ့တဲ့ password ကိုထည့်ပေးပါ။ master မှာပဲ အောက်က command ကိုrun ပေးပါ။
+```bash
+root@master:~# ssh-keygen -t rsa -b 4096
+root@master:~# ssh-copy-id root@10.28.212.239
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host '10.28.212.239 (10.28.212.239)' can't be established.
+ECDSA key fingerprint is SHA256:/iYFTNRVKleW3OEMunfAFqNOfyrcu5RN+Syd4wc5gJQ.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@10.28.212.239's password: 
 
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@10.28.212.239'"
+and check to make sure that only the key(s) you wanted were added.
+
+root@master:~# ssh-copy-id root@10.28.212.91
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host '10.28.212.91 (10.28.212.91)' can't be established.
+ECDSA key fingerprint is SHA256:7YbJUpp1F6APnm46X4L1gL5g0VlnxP0Z/G7PCbxKTdU.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@10.28.212.91's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@10.28.212.91'"
+and check to make sure that only the key(s) you wanted were added.
+```
+private key copy ပြီးရင်တော့ /etc/ansible/hosts ထဲမှာ inventory သတ်မှတ်ပေးရမှာဖြစ်ပါတယ်။ inventory ဆိုတာ ဘယ် worker node ကို ဘာအတွက်သုံးမယ်ဆိုတာမျိုး သတ်မှတ်ပေးရတာဖြစ်ပါတယ်။ ဒီ lab မှာတော့ node01 ကို webserver အဖြစ်သုံးမှာမလို့ webserver group အောက်ကိုထည့်ထားပါတယ်။ node02 ကို dbserver အနေနဲ့သုံးမှာမလို့ dbserver group ထဲထည့်ထားပါတယ်။ 
+```bash
+vim /etc/ansible/hosts
+
+[webserver]
+10.28.212.239
+
+[dbserver]
+10.28.212.91
+```
+တခြား worker nodes တွေထပ် join ချင်တယ်ဆိုရင်လည်း အပေါ်ကလိုပဲ ssh-copy-id ပြီး inventory ထဲကို ထည့်ပေးလိုက်ရုံပါပဲ။ ဒါဆိုရင်တော့ ansible configure လုပ်တာပြီးပါပြီ။ master နဲ့ worker nodes တွေ အလုပ် လုပ်မလုပ် စစ်ဖို့ အောက်က ad-hoc command လေးနဲ့စစ်ကြည့်လိုက်ပါ။ pong ပြန်လာရင် အလုပ်လုပ်နေပါပြီ။
+```bash
+root@master:~# ansible all -m ping 
+10.28.212.239 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+10.28.212.91 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+```
+<h2> Conclustion </h2>
+
+Ansible ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်ဆို အနည်းငယ်အခက်ခဲရှိနိုင်ပါတယ်။ practise များများလုပ်ပေးရင်တော့ လွယ်ကူသွားမှာပါ။ အခုAnsible configure လုပ်တာပြီးပြီဆိုတော့ PART-II မှာ ad-hoc commands တွေနဲ့ playbook တွေအကြောင်းကိုအတူတူလေ့လာဖို့ဖိတ်ခေါ်ပါတယ်။ တစ်ခုခုမသိတာရှိရင်လည်း ကျွန်တော်ရဲ့ personal email ကိုဆက်သွယ်နိုင်ပါတယ်။ About Me ထဲမှာ email ထည့်ထားပါတယ်။
+
+Thanks for reading ...
