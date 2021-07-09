@@ -50,7 +50,7 @@ lxc launch ubuntu:20.04 master
 lxc launch ubuntu:20.04 node01
 lxc launch ubuntu:20.04 node02
 ```
-ပြီးရင်တော့ launch လုပ်ခဲ့တဲ့ container တွေကို lxc list နဲ့ list လုပ်ကြည့်ပါ။ container တစ်ခချင်းစီရဲ့ details ကိုတွေ့ရမှာဖြစ်ပါတယ်။
+ပြီးရင်တော့ launch လုပ်ခဲ့တဲ့ container တွေကို lxc list နဲ့ list လုပ်ကြည့်ပါ။ container တစ်ခုချင်းစီရဲ့ details ကိုတွေ့ရမှာဖြစ်ပါတယ်။
 ```bash
 root@ubuntu:~# lxc list
 +--------+---------+----------------------+-----------------------------------------------+-----------+-----------+
@@ -65,3 +65,26 @@ root@ubuntu:~# lxc list
 | node02 | RUNNING | 10.28.212.91 (eth0)  | fd42:5733:fec6:32aa:216:3eff:fe53:dc93 (eth0) | CONTAINER | 0         |
 +--------+---------+----------------------+-----------------------------------------------+-----------+-----------+
 ```
+ပြီးရင်တော့ lxc container တွေထဲကို lxc exec နဲ့ login ဝင်ဖို့ terminal မှာ tab (၃)ခုဖွင့်လိုက်ပါ။ 
+```bash
+lxc exec master -- bash
+lxc exec node01 -- bash
+lxc exec node02 -- bash
+```
+container တွေထဲကို login ဝင်ပြီးသွားရင်တော့ အကုန်လုံးကို apt update လုပ်ပေးပါ။ ပြီးရင်တော့ ansible master အဖြစ်သုံးမယ့် node တစ်ခုထဲမှာ ansible ကို install ပေးပါ။
+```bash
+apt update -y ( on all nodes )
+apt install -y ansible ( only master )
+```
+ပြီးသွားရင်တော့ container အကုန်လုံးမှာ ssh private key copy ဖို့အတွက် လိုအပ်တဲ့ configuration အနည်းငယ်လုပ်ရပါမယ်။ /etc/ssh/sshd_config file ထဲမှာ PermitRootLogin ကို uncomment လုပ်ပြီး yes ပေးပါ။ ပြီးရင် PasswordAuthentication ကို yes ပေးပါ။ 
+```bash
+vim /etc/ssh/sshd_config
+PermitRootLogin yes
+PasswordAuthentication yes
+```
+ပြီးရင်တော့ ssh service ကို restart ချပေးပါ။ ssh-copy-id ဖို့ root user ကို password သတ်မှတ်ပေးပါ။
+```bash
+systemctl restart ssh ( on all nodes )
+passwd root ( on all nodes )
+```
+
