@@ -37,3 +37,118 @@ ansible webserver -m file -a 'dest=/root/test mode=777 state=touch'
 
 <h2> Ansible Playbook </h2>
 
+Playbook ဆိုတာ server configuration တွေကို လုပ်မယ့် organized unit of scripts တစ်ခုပဲဖြစ်ပါတယ်။ ad-hoc command တွေဟာ short command တစ်ခုသာဖြစ်ပြီး ကျွန်တော်တို့ server တွေမှာ configuration လုပ်ဖို့ဆို playbook တွေ ansible-galaxy တွေ roles တွေကိုသုံးကြရပါတယ်။ ဒီ lab မှာတော့ ansible roles အကြောင်းမပါသေးပါဘူး။ playbook မှာလည်းပဲ module တွေကို အဓိကထားပြီးသုံးကြပါတယ်။ အောက်က sample playbook လေးကို လေ့လာကြည့်ရအောင်။
+```yaml
+---
+- hosts: all
+  become: yes
+  pre_tasks:
+    - name: "update cache"      
+      apt:
+        update_cache: yes
+  tasks:
+    - name: "Install Boxes"
+      apt:
+        name:
+          - boxes
+    - name: "Install figlet"
+      apt:
+         name: 
+           - figlet
+```
+playbook က boxes နဲ့ figlet ဆိုတဲ့ tool နှစ်ခုကို worker တွေမှာ install လုပ်ဖို့ရေးထားတာပါ။ package management ဆိုတော့ apt ၊ yum ၊ dnf တစ်ခုခုကိုသုံးပြီး lab မှာ worker တွေက ubuntu တွေဖြစ်လို့ apt ကိုသုံးပါမယ်။ host all ဆိုတာကတော့ worker အားလုံးပေါ်လို့ဆိုလိုတာ။ pre tasks ဆိုတာ tasks မ run ခင်မှာ run ချင်တာတွေဆို initialize လုပ်ပြီးသုံးတာ update_cache သည် apt update -y နဲ့အတူတူပါပဲ။
+playbook ကို run လိုက်ရင်တော့  အောက်ကလိုတွေ့ရပါမယ်။
+```bash
+root@master:~# ansible-playbook apt.yaml 
+
+PLAY [TESTING ANSIBLE APT MODULE] ********************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************
+ok: [10.28.212.239]
+ok: [10.28.212.91]
+
+TASK [install boxes] *********************************************************************************************************************************
+changed: [10.28.212.239]
+changed: [10.28.212.91]
+
+TASK [install figlet] ********************************************************************************************************************************
+changed: [10.28.212.91]
+changed: [10.28.212.239]
+
+PLAY RECAP *******************************************************************************************************************************************
+10.28.212.239              : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.28.212.91               : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+install ပြီးတဲ့အခါမှာ ok=3 ဆိုပြီးတွေ့ရမှာပါ။ worker node တစ်ခုမှာသွားပြီး install လုပ်ပြီးတာ သေချာအောင်စမ်းကြည့်ရအောင်။
+```bash
+root@node01:~# figlet hello
+ _          _ _       
+| |__   ___| | | ___  
+| '_ \ / _ \ | |/ _ \ 
+| | | |  __/ | | (_) |
+|_| |_|\___|_|_|\___/ 
+```
+နောက်ထပ် playbook တစ်ခုကတော့ apache webserver ကို webserver တွေပေါ်မှာပဲ install လုပ်မှာဖြစ်ပါတယ်။
+```yaml
+---
+- name: Intall apache2
+  hosts: webserver
+  pre_tasks:
+       - name: upate packages
+         apt:
+           update_cache: yes
+  become: true
+  tasks:
+       - name: install apache2
+         apt:
+           name: apache2
+           state: latest
+         notify:
+             - restart apache2
+         become: true
+  handlers:
+       - name: restart apache2
+         service:
+              name: apache2
+              state: restarted
+```
+apt မှာ state တွေရှိပါတယ် present ဆိုတာ install ပြီးရင် skip မယ် မရှိရင် install မယ် absent state က uninstall တာကို ဆိုလိုတာပါ။ ဒီ playbook မှာတော့ apache2 ကို install မှာဖြစ်တယ်။ notify နဲ့ handler ဆိုတာက apache ကို install လုပ်ပြီးတဲ့အခါမှာ notify လုပ်မယ် notify မှာသတ်မှတ်ခဲ့တဲ့ restart apache2 ကို handlers မှာ သွားအလုပ်လုပ်မယ် apache2 ကို install ပြီး service ကို restart ချချင်တာ ဒါကြောင့် service module ကိုသုံးတာဖြစ်တယ်။ service stateတွေမှာ restarted stopped started ဆိုပြီးရှိပါတယ်။ ဒါဆို playbook ကို run လိုက်ရအောင်။
+```bash
+root@master:~# ansible-playbook apache.yaml 
+
+PLAY [Install Apache2] ********************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************
+ok: [10.28.212.239]
+
+TASK [upate packages] ********************************************************************************************************************************
+changed: [10.28.212.239]
+
+TASK [install apache2] *******************************************************************************************************************************
+ok: [10.28.212.239]
+
+PLAY RECAP *******************************************************************************************************************************************
+10.28.212.239              : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
+node01 က webserver ထဲပါတယ် ။ ဒါကြောင့် node01 သွားပြီး systemctl နဲ့ apache2 ကိုစစ်ကြည့်ရအောင်။
+```bash
+root@node01:~# systemctl status apache2
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2021-07-09 06:04:01 UTC; 3s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+    Process: 6638 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
+   Main PID: 6642 (apache2)
+      Tasks: 55 (limit: 19207)
+     Memory: 18.0M
+     CGroup: /system.slice/apache2.service
+             ├─6642 /usr/sbin/apache2 -k start
+             ├─6643 /usr/sbin/apache2 -k start
+             └─6644 /usr/sbin/apache2 -k start
+
+Jul 09 06:04:00 node01 systemd[1]: Starting The Apache HTTP Server...
+Jul 09 06:04:01 node01 systemd[1]: Started The Apache HTTP Server.
+```
+apache2 က active နေပါပြီ။ ကဲ.. ဒီလောက်ဆို playbook ကို သဘောပေါက်လောက်ပြီထင်ပါတယ်။ playbook တွေများများ ရေးကြည့်ကြပါ။ PART-II ကတော့ ဒီလောက်ပါပဲခင်ဗျာ။ PART-III မှာ ansible-galaxy နဲ့ roles တွေအကြောင်း ရေးသွားပါမယ်။ bye!!
+
+Thanks for reading ..
