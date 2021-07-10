@@ -13,17 +13,21 @@ tags:
 
 <h2> How To Backup MySql Database To S3 On Kubernetes Using CronJon </h2>
 
-ဒီနေ့မှာတော့ kubernetes ပေါ်မှာ statefulset နဲ့တင်ထားတဲ့ mysql db ကို cronjob ကိုသုံးပြီး aws s3 bucket ထဲကို backup လုပ်တာကို ရှင်းပြသွားမှာဖြစ်ပါတယ်။ Kubernetes ဆိုတာ containerized applications တွေအတွက် automate လုပ်ဖို့သုံးတာဖြစ်တယ်။ S3 ဆိုတာ က amazon က ထုတ်တဲ့ storage solution တစ်ခုဖြစ်တယ်။ cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွန်တော်တို့ရဲ့ company တွေမှာ mysql ၊ mongodb ၊ postgresql အစရှိတဲ့ database တွေကို နေ့စဥ် crontab တွေ run ပြီး backup လုပ်ထားကြပါတယ်။ Backup ထားမှသာ တစ်ခုခု lose ဖြစ်သွားရင် restore ပြန်လုပ်ဖို့လွယ်ကူပါမယ်။ ဒီနေ့မှာဆိုရင်လည်း ကျွန်တော်က kubernetes ပေါ်မှာ mysql database ကို cronjob နဲ့ aws s3 ပေါ်မှာ backup လုပ်တာကိုရှင်းပြသွားပါမယ်။
+ဒီနေ့မှာတော့ kubernetes ပေါ်မှာ statefulset နဲ့တင်ထားတဲ့ mysql db ကို cronjob ကိုသုံးပြီး aws s3 bucket ထဲကို backup လုပ်တာကို ရှင်းပြသွားမှာဖြစ်ပါတယ်။ Kubernetes ဆိုတာ containerized applications တွေအတွက် automate လုပ်ဖို့သုံးတာဖြစ်တယ်။ S3 ဆိုတာ က amazon က ထုတ်တဲ့ storage solution တစ်ခုဖြစ်တယ်။ 
+
+<p>
+cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွန်တော်တို့ရဲ့ company တွေမှာ mysql ၊ mongodb ၊ postgresql အစရှိတဲ့ database တွေကို နေ့စဥ် crontab တွေ run ပြီး backup လုပ်ထားကြပါတယ်။ Backup ထားမှသာ တစ်ခုခု lose ဖြစ်သွားရင် restore ပြန်လုပ်ဖို့လွယ်ကူပါမယ်။ ဒီနေ့မှာဆိုရင်လည်း ကျွန်တော်က kubernetes ပေါ်မှာ mysql database ကို cronjob နဲ့ aws s3 ပေါ်မှာ backup လုပ်တာကိုရှင်းပြသွားပါမယ်။
+</p>
 
 <h2> Prequities </h2>
 ```bash
- Basic Kubernetes Knowledge </li>
+ Basic Kubernetes Knowledge 
  AWS Account
  MySql Basic
 ```
 <h2> Deploy Mysql Statefulset On Kubernetes </h2>
 <p>
-ပထမဆုံးအနေနဲ့ mysql ကို statefulset တစ်ခုအနေနဲ့ kubernetes အနေနဲ့ run ပေးရပါမယ်။ statefulset မစခင် statefulset အတွက်သုံးမယ့် volume ကိုစဥ်းစားရပါတော့မယ်။ volume provisioner တွေထဲမှာ on-prem အတွက်ဆို glusterfs ၊ nfs ၊ heketi ၊ openebs ၊ rook တို့ဟာလူသုံးများကြပါတယ်။ cloud kubernets services တွေဖြစ်တဲ့ AKS EKS GKE တို့အတွက်ဆို EBS ၊ AzureDisk ၊ GCE computeDisk တို့ကိုသုံးကြပါတယ်။
+ပထမဆုံးအနေနဲ့ mysql ကို statefulset တစ်ခုအနေနဲ့ kubernetes ပေါ်မှာ run ပေးရပါမယ်။ statefulset create မလုပ်ခင် statefulset အတွက်သုံးမယ့် volume ကိုစဥ်းစားရပါတော့မယ်။ volume provisioner တွေထဲမှာ on-prem အတွက်ဆို glusterfs ၊ nfs ၊ heketi ၊ openebs ၊ rook တို့ဟာလူသုံးများကြပါတယ်။ cloud kubernets services တွေဖြစ်တဲ့ AKS EKS GKE တို့အတွက်ဆို EBS ၊ AzureDisk ၊ GCE computeDisk တို့ကိုသုံးကြပါတယ်။
 </p>
 <p>
 ဒီနေ့ မှာတော့ ကျွန်တော်က volume အကြောင်းကို ရေးမှာမဟုတ်တော့ အလွယ်တကူ သုံးနိုင်တဲ့ hostPath ကိုပဲ သုံးလိုက်ပါတယ်။
