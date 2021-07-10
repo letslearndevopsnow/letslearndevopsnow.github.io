@@ -13,7 +13,7 @@ tags:
 
 <h2> How To Backup MySql Database To S3 On Kubernetes Using CronJon </h2>
 
-ဒီနေ့မှာတော့ kubernetes ပေါ်မှာ statefulset နဲ့တင်ထားတဲ့ mysql db ကို cronjob ကိုသုံးပြီး aws s3 bucket ထဲကို backup လုပ်တာကို ရှင်ပြသွားမှာဖြစ်ပါတယ်။ Kubernetes ဆိုတာ containerized applications တွေအတွက် automate လုပ်ဖို့သုံးတာဖြစ်တယ်။ S3 ဆိုတာ က amazon က ထုတ်တဲ့ storage solution တစ်ခုဖြစ်တယ်။ cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွန်တော်တို့ရဲ့ company တွေမှာ mysql ၊ mongodb ၊ postgresql အစရှိတဲ့ database တွေကို နေ့စဥ် crontab တွေ run ပြီး backup လုပ်ထားကြပါတယ်။ Backup ထားမှသာ တစ်ခုခု lose ဖြစ်သွားရင် restore ပြန်လုပ်ဖို့လွယ်ကူပါမယ်။ ဒီနေ့မှာဆိုရင်လည်း ကျွန်တော်က kubernetes ပေါ်မှာ mysql database ကို cronjon နဲ့ aws s3 ပေါ်မှာ backup လုပ်တာကိုရှင်းပြသွားပါမယ်။
+ဒီနေ့မှာတော့ kubernetes ပေါ်မှာ statefulset နဲ့တင်ထားတဲ့ mysql db ကို cronjob ကိုသုံးပြီး aws s3 bucket ထဲကို backup လုပ်တာကို ရှင်းပြသွားမှာဖြစ်ပါတယ်။ Kubernetes ဆိုတာ containerized applications တွေအတွက် automate လုပ်ဖို့သုံးတာဖြစ်တယ်။ S3 ဆိုတာ က amazon က ထုတ်တဲ့ storage solution တစ်ခုဖြစ်တယ်။ cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွန်တော်တို့ရဲ့ company တွေမှာ mysql ၊ mongodb ၊ postgresql အစရှိတဲ့ database တွေကို နေ့စဥ် crontab တွေ run ပြီး backup လုပ်ထားကြပါတယ်။ Backup ထားမှသာ တစ်ခုခု lose ဖြစ်သွားရင် restore ပြန်လုပ်ဖို့လွယ်ကူပါမယ်။ ဒီနေ့မှာဆိုရင်လည်း ကျွန်တော်က kubernetes ပေါ်မှာ mysql database ကို cronjob နဲ့ aws s3 ပေါ်မှာ backup လုပ်တာကိုရှင်းပြသွားပါမယ်။
 
 <h2> Prequities </h2>
 ```bash
