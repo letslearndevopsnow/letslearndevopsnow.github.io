@@ -103,7 +103,7 @@ spec:
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
-      name: pvc-hostpath
+      name: mysql-pv
     spec:
       storageClassName: manual
       accessModes:
