@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Mysql Backup To S3"
+title:      "BACKUP MYSQL TO S3 ON K8S"
 subtitle:   "Backup MySql DB To S3 On Kubernetes Using CronJob"
 date:       2021-07-10 4:00:00
 author:     "Thaung Htike Oo"
