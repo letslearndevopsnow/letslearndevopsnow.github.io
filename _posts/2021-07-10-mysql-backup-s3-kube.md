@@ -16,19 +16,20 @@ tags:
 ဒီနေ့မှာတော့ kubernetes ပေါ်မှာ statefulset နဲ့တင်ထားတဲ့ mysql db ကို cronjob ကိုသုံးပြီး aws s3 bucket ထဲကို backup လုပ်တာကို ရှင်ပြသွားမှာဖြစ်ပါတယ်။ Kubernetes ဆိုတာ containerized applications တွေအတွက် automate လုပ်ဖို့သုံးတာဖြစ်တယ်။ S3 ဆိုတာ က amazon က ထုတ်တဲ့ storage solution တစ်ခုဖြစ်တယ်။ cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွန်တော်တို့ရဲ့ company တွေမှာ mysql ၊ mongodb ၊ postgresql အစရှိတဲ့ database တွေကို နေ့စဥ် crontab တွေ run ပြီး backup လုပ်ထားကြပါတယ်။ Backup ထားမှသာ တစ်ခုခု lose ဖြစ်သွားရင် restore ပြန်လုပ်ဖို့လွယ်ကူပါမယ်။ ဒီနေ့မှာဆိုရင်လည်း ကျွန်တော်က kubernetes ပေါ်မှာ mysql database ကို cronjon နဲ့ aws s3 ပေါ်မှာ backup လုပ်တာကိုရှင်းပြသွားပါမယ်။
 
 <h2> Prequities </h2>
-
-<ul>
-  <li> Basic Kubernetes Knowledge </li>
-  <li> AWS Account
-  <li> MySql Basic
-</ul>
-
+```bash
+ Basic Kubernetes Knowledge </li>
+ AWS Account
+ MySql Basic
+```
 <h2> Deploy Mysql Statefulset On Kubernetes </h2>
-
+<p>
 ပထမဆုံးအနေနဲ့ mysql ကို statefulset တစ်ခုအနေနဲ့ kubernetes အနေနဲ့ run ပေးရပါမယ်။ statefulset မစခင် statefulset အတွက်သုံးမယ့် volume ကိုစဥ်းစားရပါတော့မယ်။ volume provisioner တွေထဲမှာ on-prem အတွက်ဆို glusterfs ၊ nfs ၊ heketi ၊ openebs ၊ rook တို့ဟာလူသုံးများကြပါတယ်။ cloud kubernets services တွေဖြစ်တဲ့ AKS EKS GKE တို့အတွက်ဆို EBS ၊ AzureDisk ၊ GCE computeDisk တို့ကိုသုံးကြပါတယ်။
+</p>
+<p>
 ဒီနေ့ မှာတော့ ကျွန်တော်က volume အကြောင်းကို ရေးမှာမဟုတ်တော့ အလွယ်တကူ သုံးနိုင်တဲ့ hostPath ကိုပဲ သုံးလိုက်ပါတယ်။
-
 deployment အားလုံးကို default namespace မှာပဲ စမ်းမှာပါ။ အခု pv (persistent volume) တစ်ခုကို creat လုပ်လိုက်ပါမယ်။ pv name ကိုတော့ mysql-pv လို့ပေးလိုက်ပါမယ်။ hostPath ဖြစ်လို့ class က manual ဖြစ်ပါတယ်။ RWO access mode ပေးထားပြီး 5GB ပေးသုံးထားပါတယ်။ PV နဲ့ PVC အကြောင်းကို volume အကြောင်းရေးတဲ့အခါ သေချာရေးပါဦီးမယ်။ ဒီ lab မှာ master တစ်ခုရယ် worker နှစ်ခုရယ် သုံးမှာဖြစ်ပါတယ်။ 
+</p>
+
 ```bash
 apiVersion: v1
 kind: PersistentVolume
@@ -45,11 +46,13 @@ spec:
   hostPath:
     path: "/mnt/data"
 ```    
+
 kubectl apply နဲ့ pv ကိုအောက်ကအတိုင်း create လိုက်ပါ။ ပြီးရင် kubectl get pv နဲ့ ကြည့်လိုက်ပါ။
 ```bash
 kubectl apply -f pv.yaml
 kubectl get pv
 ```
+
 pv တစ်ခု ရပြီဆိုရင် mysql statefulset ကို စပြီး create နိုင်ပါပြီ။ statefulset အကြောင်းကိုလည်း အခုအနည်းငယ်ပဲရေးလိုက်ပါတယ်။ statefulset တစ်ခုအတွက် headless service တစ်ခုဆောက်ပေးရပါတယ်။ ကျွန်တော်ကတော့ clusterIP အနေနဲ့တန်းပြီး create လုပ်လိုက်ပါတယ်။ sts ရဲ့ pod replica တစ်ခုချင်းစီဟာကိုယ်ပိုင် pvc တစ်ခုလိုပါတယ်။ ဒါကြောင့် volumeTemplate ကိုတစ်ခါထဲထည့်ဆောက်ပေးရပါတယ်။ အောက်က yaml file ကနေ mysql sts တစ်ခုကိုဆောက်မှာပါ။ ဒါဆို mysql sts ကို create လိုက်ကြရအောင်။ mysql pod ရဲ့ pvc ဟာ ခုဏက pv နဲ့ သွား bound ပါလိမ့်မယ်။
 ```bash
 apiVersion: v1
