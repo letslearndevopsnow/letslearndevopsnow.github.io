@@ -31,7 +31,7 @@ cloud services တွေ popular မဖြစ်ခင်ကဆို ကျွ�
 </p>
 <p>
 ဒီနေ့ မှာတော့ ကျွန်တော်က volume အကြောင်းကို ရေးမှာမဟုတ်တော့ အလွယ်တကူ သုံးနိုင်တဲ့ hostPath ကိုပဲ သုံးလိုက်ပါတယ်။
-deployment အားလုံးကို default namespace မှာပဲ စမ်းမှာပါ။ အခု pv (persistent volume) တစ်ခုကို creat လုပ်လိုက်ပါမယ်။ pv name ကိုတော့ mysql-pv လို့ပေးလိုက်ပါမယ်။ hostPath ဖြစ်လို့ class က manual ဖြစ်ပါတယ်။ RWO access mode ပေးထားပြီး 5GB ပေးသုံးထားပါတယ်။ PV နဲ့ PVC အကြောင်းကို volume အကြောင်းရေးတဲ့အခါ သေချာရေးပါဦီးမယ်။ ဒီ lab မှာ master တစ်ခုရယ် worker နှစ်ခုရယ် သုံးမှာဖြစ်ပါတယ်။ 
+deployment အားလုံးကို default namespace မှာပဲ စမ်းမှာပါ။ အခု pv (persistent volume) တစ်ခုကို create လုပ်လိုက်ပါမယ်။ pv name ကိုတော့ mysql-pv လို့ပေးလိုက်ပါမယ်။ hostPath ဖြစ်လို့ class က manual ဖြစ်ပါတယ်။ RWO access mode ပေးထားပြီး 5GB ပေးသုံးထားပါတယ်။ PV နဲ့ PVC အကြောင်းကို volume အကြောင်းရေးတဲ့အခါ သေချာရေးပါဦီးမယ်။ ဒီ lab မှာ master တစ်ခုရယ် worker နှစ်ခုရယ် သုံးမှာဖြစ်ပါတယ်။ 
 </p>
 
 ```bash
