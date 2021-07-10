@@ -218,7 +218,9 @@ spec:
           restartPolicy: Never
 ```
 yaml file ထဲမှာ လိုအပ်တာတစ်ခုချင်းထည့်ပေးရပါမယ်။ database_password က Th@ungHtikeOo ကို base64 နဲ့ encode လုပ်ထားတာဖြစ်ပါတယ်။ aws access key နဲ့ secret key ကိုလည်းမိမိတို့ရဲ့ key တွေကိုထည့်ပေးပါ။
-bucket region က bucket create ခဲ့တဲ့ region ၊ db host က k8s node ip တစ်ခုထည့်ရမယ်၊ db port က node port ဖြစ်တဲ့ 32237 ၊ target db name က backup လုပ်ချင်တဲ့ db name ၊ slack ကို disabled ခဲ့တယ်။ production ဆို slack channel နဲ့ connect လုပ်ပေးလိုက်ပါ။ cron ရဲ့ value အရ နေ့တိုင်း ည (၁၀) နာရီမှာ database ကို backup မှာဖြစ်ပါတယ်။ အားလုံးသတ်မှတ်ပြီးသွားရင် job ကို create လုပ်လိုက်ပါတော့မယ်။
+bucket region က bucket create ခဲ့တဲ့ region ၊ db host က k8s node ip တစ်ခုထည့်ရမယ်၊ db port က node port ဖြစ်တဲ့ 32237 ၊ target db name က backup လုပ်ချင်တဲ့ db name ၊ slack ကို disabled ခဲ့တယ်။ 
+
+production ဆို slack channel နဲ့ connect လုပ်ပေးလိုက်ပါ။ cron ရဲ့ value အရ နေ့တိုင်း ည (၁၀) နာရီမှာ database ကို backup မှာဖြစ်ပါတယ်။ အားလုံးသတ်မှတ်ပြီးသွားရင် job ကို create လုပ်လိုက်ပါတော့မယ်။
 
 ```bash
 kubectl create -f mysql_cronjob.yaml
@@ -243,7 +245,7 @@ NAME                               SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE 
 cronjob.batch/my-database-backup   * * * * *   False     0        32s             38s
 ```
 aws s3 ထဲမှာလည်း အောက်ကပုံအတိုင်း sql dump တစ်ခုကို တွေ့ရပါလိမ့်မယ်။ 
-![s3](img/s3.png)
+![s3](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/s3.png)
 
 ဒါဆိုရင်တော့ ဒီနေ့lab က ဒီလောက်ပါပဲ။ ဒီ lab လေးကို လုပ်ကြည့်ကြဖို့လည်း တိုက်တွန်းပါတယ်။ အားလုံးကိုကျေးဇူးတင်ပါတယ်။ 
 
