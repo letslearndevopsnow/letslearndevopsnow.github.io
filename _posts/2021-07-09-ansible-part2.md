@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "LXC & ANSIBLE"
+title:      "Lxc & Ansible"
 subtitle:   "Introduction To Ansible Ad-Hoc Commands & Playbooks ( PART-II)"
 date:       2021-07-09 3:00:00
 author:     "Thaung Htike Oo"
