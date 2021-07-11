@@ -6,7 +6,7 @@ email: thaunghtikeoo.tho1234@gmail.com
 description: "关于程序与设计、黑客与画家 | 黄玄，Web & Mobile Lover，Software Engineer，UX Designer | 这里是 @Hux黄玄 的个人博客，与你一起发现更大的世界。"
 keyword: "黄玄, Hux黄玄, Hux, 鬼栈, huxpro, @huxpro, 黄玄的博客, Hux Blog, 博客, 个人网站, 互联网, Web, JavaScript, 前端, 设计"
 url: "thaunggyee.github.io"              # your host, for absolute URL
-baseurl: "thaunggyee.github.io"                             # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
 future: true
@@ -16,7 +16,7 @@ RSS: false
 github_username:    thaunggyee
 twitter_username:   huxpro
 facebook_username:  Frozen.Rose.2014
-#linkedin_username:  thaung-htike-oo-6672781b1
+linkedin_username:  thaung-htike-oo-6672781b1
 
 
 
