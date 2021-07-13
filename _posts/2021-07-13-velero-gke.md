@@ -120,5 +120,66 @@ velero ကို gke ပေါ်မှာ install ဖို့အတွက်�
 gcloud iam service-accounts keys create credentials-velero \
     --iam-account $SERVICE_ACCOUNT_EMAIL
 ```
+<h2> Install Velero </h2>
+
+velero cli ကို install လုပ်ပေးရပါမယ်။ 
+
+```bash
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.6.1/velero-v1.6.1-linux-amd64.tar.gz
+tar xzvf velero-*
+sudo mv velero-v1.6.1-linux-amd64/velero /usr/local/bin/velero
+sudo chmod +x /usr/local/bin/velero
+velero version
+````
+<h2> Install Velero On GKE </h2>
+
+velero cli ကို install ပြီးတဲ့နောက်မှာ velero ကို cluster ပေါ်မှာ deploy လုပ်ပေးဖို့လိုပါတယ်။
+
+```bash
+velero install \
+    --provider gcp \
+    --plugins velero/velero-plugin-for-gcp:v1.2.0 \
+    --bucket $BUCKET \
+    --secret-file ./credentials-velero
+```
+install ပြီးသွားတဲ့အခါ အောက်ကလိုတွေ့ရပါလိမ့်မယ်။ 
+
+```bash
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: attempting to create resource client
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: attempting to create resource client
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: attempting to create resource client
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: attempting to create resource client
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: attempting to create resource client
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+```
+velero က gke ပေါ်မှာ run နေပြီဆိုတာကို deployment ကို ကြည့်ပြီးသိနိုင်ပါတယ်။
+
+```yaml
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all -n velero
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/velero-664d8dc67f-cgtds   1/1     Running   0          2m17s
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/velero   1/1     1            1           2m18s
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/velero-664d8dc67f   1         1         1       2m18s
+```
+အားလုံးပြီးသွားရင်တော့ backup & restore ကို စမ်းဖို့အတွက် nginx deployment တစ်ခုကို create လိုက်ပါမယ်။
+
+```yaml
+kubectl create deploy nginx --image nginx
+```
+ဒါဆိုရင် defautl namespace မှာ nginx deployment တစ်ခု run နေတာကို
+
 
 
