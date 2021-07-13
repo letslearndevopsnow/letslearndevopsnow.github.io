@@ -114,7 +114,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 ```yaml
 gsutil iam ch serviceAccount:$SERVICE_ACCOUNT_EMAIL:objectAdmin gs://${BUCKET}
 ```
-velero ကို gke ပေါ်မှာ install ဖို့အတွက်ဆို ခုဏက create ခဲ့တဲ့ service account ရဲ့ key တွေကိုလိုအပ်ပါတယ်။ အောက်ပါ command နဲ့ထုတ်လိုက်ရင် clud shell ရဲ့ current directory မှာ credentials-velero ဆိုတဲံ့ key file တစ်ခုရလာပါလိမ့်မယ်။
+velero ကို gke ပေါ်မှာ install ဖို့အတွက်ဆို ခုဏက create ခဲ့တဲ့ service account ရဲ့ key တွေကိုလိုအပ်ပါတယ်။ အောက်ပါ command နဲ့ထုတ်လိုက်ရင် cloud shell ရဲ့ current directory မှာ credentials-velero ဆိုတဲံ့ key file တစ်ခုရလာပါလိမ့်မယ်။
 
 ```yaml
 gcloud iam service-accounts keys create credentials-velero \
@@ -231,14 +231,14 @@ thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all
 NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.40.0.1    <none>        443/TCP   82s
 ```
-defautl namespace မှာ backup ခဲ့တာတွေကို velero restore နဲ့ စမ်းကြည့်ပါမယ်။
+default namespace မှာ backup ခဲ့တာတွေကို velero restore နဲ့ စမ်းကြည့်ပါမယ်။
 
 ```bash
 thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ velero restore create firstrestore --from-backup firstbackup
 Restore request "firstrestore" submitted successfully.
 Run `velero restore describe firstrestore` or `velero restore logs firstrestore` for more details.
 ```
-restore ပြီးတဲ့အခါ defautl namespace မှာ backup လုပ်ခဲ့တဲ့ nginx deployment run နေတာကိုတွေ့ရမှာဖြစ်ပါတယ်။
+restore ပြီးတဲ့အခါ default namespace မှာ backup လုပ်ခဲ့တဲ့ nginx deployment run နေတာကိုတွေ့ရမှာဖြစ်ပါတယ်။
 
 ```bash
 thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all
