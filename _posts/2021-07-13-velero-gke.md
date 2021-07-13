@@ -179,7 +179,109 @@ replicaset.apps/velero-664d8dc67f   1         1         1       2m18s
 ```yaml
 kubectl create deploy nginx --image nginx
 ```
-ဒါဆိုရင် defautl namespace မှာ nginx deployment တစ်ခု run နေတာကို
+ဒါဆိုရင် defautl namespace မှာ nginx deployment တစ်ခု run နေတာကိုတွေ့ရပါလိမ့်မယ်။ 
 
+```yaml
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/nginx-6799fc88d8-hl57c   1/1     Running   0          12s
 
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.40.0.1    <none>        443/TCP   76m
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   1/1     1            1           13s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-6799fc88d8   1         1         1       13s
+```
+ဒါဆိုရင်အခုပဲ backup လုပ်တာကို စမ်းကြည့်ပါတော့မယ်။ backup လုပ်တဲ့အခါ option တွေများစွာရှိပြီး manually backup လုပ်နိုင်သလို cron တွေနဲ့လည်း backup လုပ်နိုင်ပါတယ်။ အောက်က example ကတော့ defautl namespace တစ်ခုလုံးကို backup လုပ်လိုက်တာပါ။
+
+```bash
+velero create backup firstbackup --include-namespaces default
+```
+backup create ပြီးရင်တော့ velero backet get နဲ့ကြည့်လိုက်ပါ။ complete ဖြစ်နေတာကိုတွေ့ရမှာဖြစ်ပါတယ်။
+
+```
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ velero backup get
+NAME          STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+firstbackup   Completed   0        0          2021-07-13 07:35:46 +0000 UTC   29d       default            <none>
+```
+ကျွန်တော်တို့ cloud storage ထဲက bucket မှာလည်း firstbackup ဆိုပြီး အောက်ပါအတိုင်းတွေ့ရမှာဖြစ်ပါတယ်။
+
+![bucket](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/backup.png)
+
+backup တစ်ခုချင်းစီိကို detail ကြည့်ချင်ရင်တော့ အောက်က command တွေနဲ့ ကြည့်နိုင်ပါတယ်။
+
+```yaml
+velero backup get
+velero backup describe <name>
+velero backup logs <name>
+kubectl get backup -n velero
+kubectl describe backup <name> -n velero
+````
+backup စမ်းတာပြီးပြီဆိုတော့ restore အပိုင်းကိုစမ်းပါမယ်။ ခုဏက create ခဲ့တဲ့ backup ကိုပဲ restore ပါမယ်။ defautl namespace မှာရှိတဲ့ nginx deployment ကို delete လိုက်ပါမယ်။
+
+```yaml
+kubectl delete all --all --force
+```
+ဒါဆိုရင်ကျွန်တော်ရဲ့ default namespace မှာဘာမှမရှိတော့ပါဘူး။ kubectl get all  နဲ့ကြည့်လိုက်ပါ။ 
+
+```bash
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.40.0.1    <none>        443/TCP   82s
+```
+defautl namespace မှာ backup ခဲ့တာတွေကို velero restore နဲ့ စမ်းကြည့်ပါမယ်။
+
+```bash
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ velero restore create firstrestore --from-backup firstbackup
+Restore request "firstrestore" submitted successfully.
+Run `velero restore describe firstrestore` or `velero restore logs firstrestore` for more details.
+```
+restore ပြီးတဲ့အခါ defautl namespace မှာ backup လုပ်ခဲ့တဲ့ nginx deployment run နေတာကိုတွေ့ရမှာဖြစ်ပါတယ်။
+
+```bash
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ kubectl get all
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/nginx-6799fc88d8-hl57c   1/1     Running   0          3m16s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.40.0.1    <none>        443/TCP   6m37s
+
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   1/1     1            1           3m17s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-6799fc88d8   1         1         1       3m17s
+```
+velero restore get နဲ့ စစ်ကြည့်ရင်လည်း complete ဖြစ်နေတာကိုတွေ့ရမှာဖြစ်ပါတယ်။ 
+
+```bash
+thaunghtikeoo_tho1234@cloudshell:~ (clever-circlet-317904)$ velero restore get
+NAME           BACKUP        STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+firstrestore   firstbackup   Completed   2021-07-13 07:49:20 +0000 UTC   2021-07-13 07:49:22 +0000 UTC   0        1          2021-07-13 07:49:20 +0000 UTC   <none>
+```
+console ပေါ်က bucket မှာလည်း restores ဆိုပြီး directory တစ်ခုကိုတွေ့ရမှာဖြစ်ပါတယ်။
+
+![restor](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/restore.png)
+
+အခြားသော backup option တွေကို အသေးစိတ်မရှင်းပြတော့ပါဘူး ။ exclude-namespaces ၊ exclude-resource ဆိုပြီး စသည်ဖြင့်လည်း backup လုပ်နိုင်ပါသေးတယ်။
+
+```yaml
+velero backup create nginxbackup --include-namespaces default --exclude-resources pods
+velero backup create name --exclude-namespaces kube-system
+velero backup create name --exclude-resources secrets/configmaps
+```
+cronjob တွေကိုသုံးပြီး backup ချင်ရင်တော့ အောက်ပါအတိုင်း backkup နိုင်ပါတယ်။ 
+
+```yaml
+kubectl schedule create firstbackup --scheudle="0 22 * * *" --include-namespace default  --exclude-resources secrets/configmaps
+```
+
+<h2> Conclusion </h2>
+
+ကျွန်တော်ရှင်းပြခဲ့တာတွေကို နားလည်သဘောပေါက်လိမ့်မယ်လို့ထင်ပါတယ်။ နည်းနည်း ရှည်သွားပြီဆိုတော့ ဒီမှာပဲစာရေးတာကိုအဆုံးသတ်လိုက်ပါတော့မယ်။ PART-II မှာ backup storage location အကြောင်းကို ဆက်လက်ဆွေးနွေးသွားပါမယ်။
+အားလုံးပဲ ဒီကပ်ရောဂါဆိုးကြီးကနေ အမြန် ကျော်ဖြတ်နိုင်ပါစေလို့ဆုတောင်းရင်း အဆုံသတ်လိုက်ပါတယ်။
+
+Thanks for reading ...
 
