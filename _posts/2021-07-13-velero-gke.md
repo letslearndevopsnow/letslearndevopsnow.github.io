@@ -30,7 +30,7 @@ Kubernetes Cluster တွေကို backup ဖို့ tools တွေအမ�
 လုပ်ပါတယ်။ အသေးစိတ်ကိုတော့ velero ရဲ့ official doc မှာဖတ်နိုင်ပါတယ်။ ဒါဆိုရင်အခုပဲ lab ကိုစလိုက်ရအောင်နော်။ 
 
 GCP console ထဲကနေ Kubernetes Engine ဆိုပြီးရှာလိုက်ပါ။ ပြီးရင် node (၃)ခုနဲ့ cluster တစ်ခုကိုဆောက်ပေးပါ။ cluster create ပြီးရင်တော့ အောက်ကလိုတွေ့ရမှာပဲဖြစ်ပါတယ်။
-![gke]()
+![gke](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/gke.png)
 
 ပြီးသွားရင် ဘေးက အစက် (၃)စက် ကနေ connect ကိုနှိပ်လိုက်ပါ။ 
-![connect]()
+![connect](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/connect.png)
