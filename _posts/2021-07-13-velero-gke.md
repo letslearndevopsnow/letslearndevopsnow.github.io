@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Backup And Restore Objects In GKE"
+title:      "Backup & Restore Objects In GKE"
 subtitle:   "How To Bakup And Restore Objects In GKE Cluster"
 date:       2021-07-13 4:00:00
 author:     "Thaung Htike Oo"
