@@ -15,7 +15,7 @@ tags:
 
 Kubernetes Cluster တွေပေါ်မှာ deploy လုပ်ထားတဲ့ workload တွေနဲ့ တစ်ခြားသော resources တွေကို backup လုပ်ဖို့ဆို velero ဟာ အကောင်းဆုံး tool တစ်ခုဖြစ်တယ်ဆိုတာ အားလုံးလက်ခံကြမှာပါ။ on-prem မှာရှိတဲ့ 
 kubernetes cluster တွေကို minio နဲ့ velero ကိုတွဲသုံးပြီး backup and restore လုပ်ကြပါတယ်။ ကျွန်တော် ဒီနေ့မှာတော့ GKE cluster တစ်ခုပေါ်မှာ deploy ထားတဲ့ workloads တွေကို velero သုံးပြီးဘယ်လို 
-backup လုပ်မလဲဆိုတဲ့အကြောင်းပဲဖြစ်ပါတယ်။
+backup and restore လုပ်မလဲဆိုတာကိုရေးမှာဖြစ်ပါတယ်။
 
 <h2> Prerequities </h2>
 
