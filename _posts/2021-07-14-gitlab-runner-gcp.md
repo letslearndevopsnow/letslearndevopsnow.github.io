@@ -23,7 +23,7 @@ Runners တွေဟာ ဘာလို့ autoscale လုပ်ဖို့လ
 
 <h2> Runner Manager </h2>
 
-Runner manager လို့ပဲခေါ်ခေါ် bastion host လို့ပဲခေါ်ခေါ် အတူတူပါပဲ။ သူရဲ့အဓိက တာဝန်က runner တွေကို scale in ၊ scale out လုပ်ပေးဖို့ပါပဲ။ ဒါဆိုရင် ပထမဆုံးအနေနဲ့ runner manager အတွက် compute engine တစ်ခုကို create လုပ်ပေးရပါမယ်။ ec2-micro လောက်ဆို လုံလောက်ပါပြီ။ runner manager ကို API တွေကို ccess ရအောင် Access Scopes မှာ allow full access to all cloud api ကိုရွေးပေးပါ။ ssh နဲ့ တစ်ခြား services တွေအတွက် firewall rules တွေသတ်မှတ်ပေးပါ။ အားလုံးပြီးသွားရင်တော့ အောက်က လို vm တစ်ခု ရလာပါလိမ့်မယ်။
+Runner manager လို့ပဲခေါ်ခေါ် bastion host လို့ပဲခေါ်ခေါ် အတူတူပါပဲ။ သူရဲ့အဓိက တာဝန်က runner တွေကို scale in ၊ scale out လုပ်ပေးဖို့ပါပဲ။ ဒါဆိုရင် ပထမဆုံးအနေနဲ့ runner manager အတွက် compute engine တစ်ခုကို create လုပ်ပေးရပါမယ်။ ec2-micro လောက်ဆို လုံလောက်ပါပြီ။ runner manager ကို API တွေကို access ရအောင် Access Scopes မှာ allow full access to all cloud api ကိုရွေးပေးပါ။ ssh နဲ့ တစ်ခြား services တွေအတွက် firewall rules တွေသတ်မှတ်ပေးပါ။ အားလုံးပြီးသွားရင်တော့ အောက်က လို vm တစ်ခု ရလာပါလိမ့်မယ်။
 
 ![vm](https://raw.githubusercontent.com/thaunggyee/thaunggyee.github.io/master/img/vm.png)
 
