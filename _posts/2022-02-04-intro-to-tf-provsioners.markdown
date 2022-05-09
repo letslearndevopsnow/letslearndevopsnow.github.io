@@ -3,7 +3,8 @@ layout:     post
 title:   "Introduction To Terraform Provisioners"
 subtitle: "Terraform Provisioners"
 date:       2022-02-14 15:13:18 +0200
-header-img: 36.png
+header-img: /img/tf.jpeg
+author: Thaung Htike Oo
 tags:
     - Terraform
     - IAC
