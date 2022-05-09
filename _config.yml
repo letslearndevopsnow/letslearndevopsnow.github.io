@@ -1,10 +1,10 @@
 # Site settings
-title: DevOps & Cloud
-SEOTitle: DevOps & Cloud 
-header-img: img/black.jpg
+title: Learn DevOps Now - Thaung Htike Oo
+SEOTitle: Learn DevOps Now - Thaung Htike Oo
+header-img: img/home.jpg
 email: thaunghtikeoo.tho1234@gmail.com
 
-url: "thaunggyee.github.io"              # your host, for absolute URL
+url: "letslearndevopsnow.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
@@ -12,8 +12,8 @@ future: true
 
 # SNS settings
 RSS: false
-github_username:    thaunggyee
-twitter_username:   huxpro
+github_username:    thaunghtike-share
+twitter_username:   thaunghtikeoo
 facebook_username:  Frozen.Rose.2014
 linkedin_username:  thaung-htike-oo-6672781b1
 
@@ -68,15 +68,15 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-ga_domain: huangxuan.me
+ga_track_id: ''            # Format: UA-xxxxxx-xx
+ga_domain: 
 
 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Associate SRE who loves DevOps and Cloud Technologies. <br> Still trying to be a Cloud DevOps Engineer."
-sidebar-avatar: /img/avatar-hux-ny.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "DevOps Engineer"
+sidebar-avatar: /img/me.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 # Featured Tags
