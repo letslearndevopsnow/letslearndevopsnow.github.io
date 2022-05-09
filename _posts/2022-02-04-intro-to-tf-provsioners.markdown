@@ -3,7 +3,7 @@ layout:     post
 title:   "Introduction To Terraform Provisioners"
 subtitle: "Terraform Provisioners"
 date:       2022-02-14 15:13:18 +0200
-header-img: img/tf.jpeg
+header-img: img/black.jpeg
 author: Thaung Htike Oo
 tags:
     - Terraform
