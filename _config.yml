@@ -1,5 +1,5 @@
 # Site settings
-title: Learn DevOps Now - Thaung Htike Oo
+title: Learn DevOps Now 
 SEOTitle: 
 header-img: img/black.jpeg
 email: thaunghtikeoo.tho1234@gmail.com
@@ -76,7 +76,7 @@ ga_domain:
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "DevOps Engineer"
-sidebar-avatar:      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/home.jpeg    # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 # Featured Tags
